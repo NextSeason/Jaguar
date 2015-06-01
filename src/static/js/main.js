@@ -47,7 +47,13 @@ var Jaguar = ({
     points : [ {
         coords : [ 560, 450 ],
         target : 5,
+        className : 'red',
         link : 'http://test.qctt.cn/JieBaoFirst/zhongkong.html'
+    }, {
+        coords : [ 100, 450 ],
+        target : 1,
+        className : 'blue',
+        link : 'http://test.qctt.cn/JieBaoFirst/waiguan.html'
     }, {
         coords : [ 440, 555 ],
         target : 5,
@@ -84,6 +90,16 @@ var Jaguar = ({
         coords : [ 580, 45 ],
         target : 3,
         picture : 8
+    } ],
+    text : [ {
+        coords : [ 480, 555 ],
+        t : '点击中控台<br />启动按钮开启试驾体验',
+        target : 5
+    }, {
+        coords : [ 135, 455 ],
+        t : '打开车门查看车身外观',
+        className : 'blue',
+        target : 1
     } ],
     init : function() {
         var me = this;
@@ -149,7 +165,11 @@ var Jaguar = ({
             point = this.points[ i ];
 
             elem = document.createElement( 'a' );
-            elem.className = 'points point-' + i;
+            elem.className = [ 
+                'points',
+                'point-' + i,
+                point.className || ''
+            ].join( ' ' );
 
             if( point.hasOwnProperty( 'picture' ) ) {
                 elem.setAttribute( 'data-picture', point[ 'picture' ] );
@@ -169,17 +189,27 @@ var Jaguar = ({
     },
 
     setText : function() {
-        var elem = document.createElement( 'a' );
+        var i = 0,
+            l = this.text.length,
+            elem,
+            text;
 
-        elem.className = 'text';
+        for( ; i < l; i += 1 ) {
+            text = this.text[ i ];
 
-        elem.innerHTML = '点击中控台<br />启动按钮开启试驾体验';
+            elem = document.createElement( 'a' );
+            elem.className = [ 
+                'text',
+                text.className || ''
+            ].join( ' ' );
 
-        elem.style.left = '480px';
-        elem.style.top = '555px';
+            elem.innerHTML = text.t;
 
-        $( '.side-5' ).append( elem );
+            elem.style.left = text.coords[ 0 ] + 'px';
+            elem.style.top = text.coords[ 1 ] + 'px';
 
+            $( '.side-' + text.target ).append( elem );
+        }
         return this;
     },
     bindEvent : function() {

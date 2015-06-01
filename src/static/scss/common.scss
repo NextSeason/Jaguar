@@ -14,6 +14,8 @@ a.points {
     display : block;
     position : absolute;
     background : transparent;
+    text-decoration : none;
+    font-size : 0;
     z-index : 10000000000000;
     -webkit-touch-callout : none;
     -webkit-animation-name : 'zoom';
@@ -40,6 +42,19 @@ a.points {
             -webkit-border-radius : 100%;
         }
     }
+    &.blue {
+        span {
+            border-color : #1476CC;
+        }
+        b {
+            background : #1476CC;
+        }
+    }
+    &.red {
+        span {
+            border-color : #C74140;
+        }
+    }
 }
 a.text {
     font-size : 14px;
@@ -53,6 +68,10 @@ a.text {
     padding : 0 10px;
     border-radius : 3px;
     -webkit-border-radius : 3px;
+    &.blue {
+        background : #1476CC;
+        height : 20px;
+    }
 }
 
 @-webkit-keyframes zoom {

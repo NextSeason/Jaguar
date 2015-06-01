@@ -60,6 +60,22 @@ module.exports = function( grunt ) {
                 tasks : [ 'copy', 'compass', 'replace' ]
             }
         },
+        uglify : {
+            target : {
+                files : [ {
+                    expand : true,
+                    src : '<%= dist %>/**/*.js'
+                } ]
+            }
+        },
+        cssmin : {
+            target : {
+                files : [ {
+                    expand : true,
+                    src : [ '<%= dist %>/**/*.css' ]
+                } ]
+            }
+        }
         /*
         environments : {
             options : {
@@ -72,6 +88,8 @@ module.exports = function( grunt ) {
     grunt.loadNpmTasks( 'grunt-contrib-compass' );
     grunt.loadNpmTasks( 'grunt-contrib-watch' );
     grunt.loadNpmTasks( 'grunt-replace' );
+    grunt.loadNpmTasks( 'grunt-contrib-uglify' );
+    grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
 
     grunt.registerTask( 'remove', function() {
         grunt.file.delete( './dist', { force : true } );
@@ -79,4 +97,5 @@ module.exports = function( grunt ) {
 
     grunt.registerTask( 'default', [ 'remove', 'copy', 'compass', 'replace' ] );
 
+    grunt.registerTask( 'online', [ 'default', 'uglify', 'cssmin' ] );
 };
